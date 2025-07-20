@@ -3,16 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Home | Photobooth</title>
-    <style>
-        body {
-            background-color: #E0D7E5;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>PHOTOBOOTH</h1>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="center-image">
+    <button class = "start-button">Start</button>
 </body>
-</html>
+</html>  
