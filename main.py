@@ -14,9 +14,9 @@ def loginpage():
 def signuppage():
     return render_template('signup.html')
 
-@app.route('/photobooth')
+@app.route('/layout')
 def photoboothpage():
-    return render_template('photobooth.html')
+    return render_template('layout.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
