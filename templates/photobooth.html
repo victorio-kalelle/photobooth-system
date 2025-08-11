@@ -2,23 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Photobooth</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/photobooth.css') }}">
 </head>
 
 <body>
     <div class="holder">
-        <h1 class="title">Smile for the camera!</h1>
-
         <div class="booth-container">
-            <!-- Camera preview -->
+
             <div class="camera-section">
                 <video id="video" autoplay></video>
-                <button id="captureBtn" class="btn">📸 Take Photo</button>
             </div>
 
             <div id="finalFrame" class="final-frame"></div>
+        </div>
+
+        <div class="button-wrapper">
+            <button id="captureBtn" class="btn">📷</button>
         </div>
     </div>
 
@@ -35,18 +36,26 @@
         function createLayout() {
             finalFrame.innerHTML = "";
             finalFrame.style.backgroundColor = selectedFrameColor;
-            finalFrame.classList.add(`layout-${selectedLayout}`);
+            finalFrame.className = "final-frame";
+
+            const cameraHeight = document.querySelector(".camera-section video").offsetHeight;
+            finalFrame.style.height = cameraHeight + "px";
+
+            const gapCount = selectedLayout - 1;
+            const gapTotal = gapCount * 10;
+            const slotHeight = (cameraHeight - gapTotal) / selectedLayout;
+
             for (let i = 0; i < selectedLayout; i++) {
                 const slot = document.createElement("div");
                 slot.classList.add("photo-slot");
+                slot.style.height = slotHeight + "px";
                 finalFrame.appendChild(slot);
             }
         }
 
-        createLayout();
-
         navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
             video.srcObject = stream;
+            video.addEventListener('loadedmetadata', createLayout);
         });
 
         captureBtn.addEventListener("click", () => {
@@ -67,11 +76,16 @@
             slot.appendChild(img);
 
             if (shots.length === selectedLayout) {
-                captureBtn.textContent = "✅ Done";
+                captureBtn.textContent = "Done";
+                captureBtn.removeEventListener("click", captureBtnHandler);
                 captureBtn.addEventListener("click", savePhotos);
                 stopCamera();
             }
         });
+
+        function captureBtnHandler() {
+            // placeholder if needed, removed to avoid double listener
+        }
 
         function savePhotos() {
             fetch("/save_photos", {
@@ -97,4 +111,5 @@
         }
     </script>
 </body>
+
 </html>

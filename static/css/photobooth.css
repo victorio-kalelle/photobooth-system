@@ -1,98 +1,104 @@
 body {
     background-color: #E0D7E5;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    margin: 0;
 }
 
 .holder {
-    background: white;
+    max-width: 1200px;
+    margin: auto;
     padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    width: 900px;
 }
 
 .title {
     margin-bottom: 20px;
-    color: #7B6687;
+    font-size: 2em;
 }
 
 .booth-container {
     display: flex;
-    gap: 20px;
+    justify-content: center;
     align-items: flex-start;
+    gap: 20px;
 }
 
 .camera-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
 }
 
-video {
-    width: 350px;
-    height: auto;
-    border-radius: 8px;
-    border: 4px solid #7B6687;
+#video {
+    width: 642px;
+    height: 576px;
+    background: black;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 .btn {
-    padding: 10px 20px;
+    margin-top: 10px;
+    padding: 0;
+    width: 75px;
+    height: 75px;
+    background: #ffff;
     border: none;
-    background-color: #7B6687;
     color: white;
-    font-weight: bold;
-    border-radius: 8px;
+    font-size: 40px;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;             /* center content */
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-bottom: 15px;
 }
 
-.btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+
+.btn:hover {
+    background: #A792B5;
 }
 
 .final-frame {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    width: 300px;
+    height: 476px;         /* same as video */
+    padding: 0;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
 }
 
 .photo-slot {
-    flex: 1;
-    display: flex;
+    background: transparent;
     justify-content: center;
     align-items: center;
-    margin: 5px 0;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 0;
+    flex-grow: 0;
+    margin-right: 10px;
 }
 
 .photo-slot img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 4px;
-}
-
-.layout-1 .photo-slot {
+    width: 100%;
     height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    background-color: #f0f0f0;
 }
 
-.layout-2 .photo-slot {
-    height: 48%;
-}
-
-.layout-4 .photo-slot {
-    height: 23%;
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
