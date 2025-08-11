@@ -1,0 +1,38 @@
+<DOCTYPE! html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up | Photobooth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+    </a>
+    <div class="holder">
+        <p class="login-title">Sign up</p>
+        <form>
+            <div class="input-row">
+                <input type="text" placeholder="First name">
+                <input type="text" placeholder="Last name">
+            </div>
+
+            <div class="input-single">
+                <input type="email" placeholder="Email">
+            </div>
+            <div class="input-single">
+                <input type="password" placeholder="Password">
+            </div>
+            <div class="input-single">
+                <input type="password" placeholder="New password">
+            </div>
+
+            <p class="signup-text">
+                Already have an account? <a href="/login">Sign in</a>
+            </p>
+
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+    </div>
+</body>
+
+</html>
