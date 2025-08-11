@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from PIL import Image, ImageDraw
+from PIL import Image
 import io, base64, os
 from datetime import datetime
 
@@ -35,7 +35,7 @@ def save_photos():
         return jsonify({"error": "No images received"}), 400
 
     # Layout size settings
-    slot_size = (300, 200)  # width, height of each image
+    slot_size = (300, 200)
     padding = 10
 
     if layout == 1:
@@ -55,7 +55,7 @@ def save_photos():
 
     # Paste each shot into the correct position
     for idx, img_data in enumerate(images):
-        img_data = img_data.split(",")[1]  # Remove base64 header
+        img_data = img_data.split(",")[1]
         img_bytes = base64.b64decode(img_data)
         img = Image.open(io.BytesIO(img_bytes)).convert("RGB")
         img = img.resize(slot_size)
@@ -73,7 +73,6 @@ def save_photos():
 
         final_img.paste(img, (x, y))
 
-    # Save the final frame image
     filename = f"photobooth_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
     filepath = os.path.join(SAVE_DIR, filename)
     final_img.save(filepath)
