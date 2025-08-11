@@ -1,5 +1,5 @@
 body { 
-    background-color: #E0D7E5;
+    background-color: #3F3844;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -42,7 +42,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     cursor: pointer;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
@@ -65,15 +65,15 @@ body {
 }
 
 .frame1 {
-    background-color: #FFB6C1;
+    background-color: #A792B5;
 }
 
 .frame2 {
-    background-color: #ADD8E6;
+    background-color: #6E57C8
 }
 
 .frame3 {
-    background-color: #90EE90;
+    background-color: #000000;
 }
 
 .layout-card.selected .frame1,

@@ -1,5 +1,5 @@
 body {
-    background-color: #E0D7E5;
+    background: linear-gradient(to bottom, #BFC1C2 0%, #3F3844 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -47,14 +47,14 @@ body {
     padding: 0;
     width: 75px;
     height: 75px;
-    background: #ffff;
+    background: #36013c6b;
     border: none;
     color: white;
     font-size: 40px;
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.3s ease;
-    display: flex;             /* center content */
+    display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
@@ -70,7 +70,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 476px;         /* same as video */
+    height: 476px;
     padding: 0;
     gap: 10px;
     background-color: transparent;
