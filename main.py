@@ -6,14 +6,6 @@ app = Flask(__name__)
 def titlepage():
     return render_template('titlepage.html')
 
-@app.route('/login')
-def loginpage():
-    return render_template('login.html')
-
-@app.route('/signup')
-def signuppage():
-    return render_template('signup.html')
-
 @app.route('/layout')
 def layout_selection():
     return render_template('layout.html')
