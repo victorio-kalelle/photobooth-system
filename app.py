@@ -34,7 +34,7 @@ def save_photos():
     if not images:
         return jsonify({"error": "No images received"}), 400
 
-    # Layout size settings
+    # Layout settings
     slot_size = (300, 200)
     padding = 10
 
@@ -45,15 +45,14 @@ def save_photos():
         final_width = slot_size[0] + padding * 2
         final_height = slot_size[1] * 2 + padding * 3
     elif layout == 4:
-        final_width = slot_size[0] * 2 + padding * 3
-        final_height = slot_size[1] * 2 + padding * 3
+        final_width = slot_size[0] + padding * 2
+        final_height = slot_size[1] * 4 + padding * 5
     else:
         return jsonify({"error": "Invalid layout"}), 400
 
-    # Create frame background
+    # Create the background frame
     final_img = Image.new("RGB", (final_width, final_height), frame_color)
 
-    # Paste each shot into the correct position
     for idx, img_data in enumerate(images):
         img_data = img_data.split(",")[1]
         img_bytes = base64.b64decode(img_data)
@@ -66,10 +65,8 @@ def save_photos():
             x = padding
             y = padding + idx * (slot_size[1] + padding)
         elif layout == 4:
-            row = idx // 2
-            col = idx % 2
-            x = padding + col * (slot_size[0] + padding)
-            y = padding + row * (slot_size[1] + padding)
+            x = padding
+            y = padding + idx * (slot_size[1] + padding)
 
         final_img.paste(img, (x, y))
 
