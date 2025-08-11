@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Photobooth</title>
+    <title>Choose Layout</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 </head>
 
@@ -12,14 +12,14 @@
         <h1 class="title">Choose your desired layout</h1>
 
         <div class="layout-options">
-            <div class="layout-card">
+            <div class="layout-card" data-layout="1">
                 <div class="layout-box full"></div>
             </div>
-            <div class="layout-card">
+            <div class="layout-card" data-layout="2">
                 <div class="layout-box half"></div>
                 <div class="layout-box half"></div>
             </div>
-            <div class="layout-card">
+            <div class="layout-card" data-layout="4">
                 <div class="layout-box quarter"></div>
                 <div class="layout-box quarter"></div>
                 <div class="layout-box quarter"></div>
@@ -28,9 +28,8 @@
         </div>
 
         <div class="buttons">
-            <button class="btn back-btn">BACK</button>
             <a href="/frame">
-            <button class="btn next-btn">NEXT</button>
+                <button class="btn next-btn">NEXT</button>
             </a>
         </div>
     </div>
@@ -43,6 +42,9 @@
                 card.addEventListener("click", () => {
                     cards.forEach(c => c.classList.remove("selected"));
                     card.classList.add("selected");
+
+                    const layout = card.getAttribute("data-layout");
+                    localStorage.setItem("selectedLayout", layout);
                 });
             });
         });

@@ -1,67 +1,99 @@
 body {
     background-color: #E0D7E5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    margin: 0;
 }
 
 .holder {
-    width: 950px;
-    height: 500px;
-    background-color: #ffffff;
+    background: white;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    padding: 40px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    width: 900px;
 }
 
 .title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    color: #7B6687;
 }
 
-.buttons {
+.booth-container {
     display: flex;
-    gap: 30px;
-    justify-content: center;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.camera-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+video {
+    width: 350px;
+    height: auto;
+    border-radius: 8px;
+    border: 4px solid #7B6687;
 }
 
 .btn {
-    padding: 10px 28px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    background-color: #7B6687;
+    color: white;
     font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-.back-btn {
-    background-color: white;
-    color: #7B6687;
-    border: 1px solid #7B6687;
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
-.back-btn:hover {
-    background-color: #B29FBF;
-    color: #ffffff;
-    border: 1px solid #B29FBF;
+.final-frame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.next-btn {
-    background-color: white;
-    color: #7B6687;
-    border: 1px solid #7B6687;
+.photo-slot {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
 }
 
-.next-btn:hover {
-    background-color: #B29FBF;
-    color: #ffffff;
+.photo-slot img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+}
+
+/* Layout variations */
+.layout-1 .photo-slot {
+    height: 100%;
+}
+
+.layout-2 .photo-slot {
+    height: 48%;
+}
+
+.layout-4 .photo-slot {
+    height: 23%;
 }

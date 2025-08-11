@@ -9,13 +9,92 @@
 
 <body>
     <div class="holder">
-        <div class="buttons">
-            <a href="/frame">
-            <button class="btn back-btn">BACK</button>
-            </a>
-                <button class="btn next-btn">FINISH</button>
+        <h1 class="title">Smile for the camera!</h1>
+
+        <div class="booth-container">
+            <!-- Camera preview -->
+            <div class="camera-section">
+                <video id="video" autoplay></video>
+                <button id="captureBtn" class="btn">📸 Take Photo</button>
+            </div>
+
+            <div id="finalFrame" class="final-frame"></div>
         </div>
     </div>
-</body>
 
+    <script>
+        const video = document.getElementById("video");
+        const captureBtn = document.getElementById("captureBtn");
+        const finalFrame = document.getElementById("finalFrame");
+
+        const selectedLayout = parseInt(localStorage.getItem("selectedLayout") || "1");
+        const selectedFrameColor = localStorage.getItem("selectedFrameColor") || "#FFFFFF";
+
+        let shots = [];
+
+        function createLayout() {
+            finalFrame.innerHTML = "";
+            finalFrame.style.backgroundColor = selectedFrameColor;
+            finalFrame.classList.add(`layout-${selectedLayout}`);
+            for (let i = 0; i < selectedLayout; i++) {
+                const slot = document.createElement("div");
+                slot.classList.add("photo-slot");
+                finalFrame.appendChild(slot);
+            }
+        }
+
+        createLayout();
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+            video.srcObject = stream;
+        });
+
+        captureBtn.addEventListener("click", () => {
+            if (shots.length >= selectedLayout) return;
+
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext("2d");
+            context.drawImage(video, 0, 0);
+
+            const imgData = canvas.toDataURL("image/png");
+            shots.push(imgData);
+
+            const slot = finalFrame.querySelectorAll(".photo-slot")[shots.length - 1];
+            const img = document.createElement("img");
+            img.src = imgData;
+            slot.appendChild(img);
+
+            if (shots.length === selectedLayout) {
+                captureBtn.textContent = "✅ Done";
+                captureBtn.addEventListener("click", savePhotos);
+                stopCamera();
+            }
+        });
+
+        function savePhotos() {
+            fetch("/save_photos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    images: shots,
+                    layout: selectedLayout,
+                    frameColor: selectedFrameColor
+                })
+            }).then(res => res.json())
+              .then(data => {
+                  alert(`Photos saved as: ${data.filename}`);
+              });
+        }
+
+        function stopCamera() {
+            const stream = video.srcObject;
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            video.srcObject = null;
+        }
+    </script>
+</body>
 </html>
