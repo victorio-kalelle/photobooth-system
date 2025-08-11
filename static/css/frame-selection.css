@@ -101,18 +101,6 @@ body {
     font-size: 16px;
 }
 
-.back-btn {
-    background-color: white;
-    color: #7B6687;
-    border: 1px solid #7B6687;
-}
-
-.back-btn:hover {
-    background-color: #B29FBF;
-    color: #ffffff;
-    border: 1px solid #B29FBF;
-}
-
 .next-btn {
     background-color: white;
     color: #7B6687;
@@ -120,6 +108,18 @@ body {
 }
 
 .next-btn:hover {
+    background-color: #B29FBF;
+    color: #ffffff;
+    border: 1px solid #B29FBF;
+}
+
+.back-btn {
+    background-color: white;
+    color: #7B6687;
+    border: 1px solid #7B6687;
+}
+
+.back-btn:hover {
     background-color: #B29FBF;
     color: #ffffff;
     border: 1px solid #B29FBF;
