@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photobooth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/photobooth.css') }}">
+</head>
+
+<body>
+    <div class="holder">
+        <h1 class="title">Choose your desired layout</h1>
+
+        <div class="layout-options">
+            <div class="layout-card">
+                <div class="layout-box full"></div>
+            </div>
+            <div class="layout-card">
+                <div class="layout-box half"></div>
+                <div class="layout-box half"></div>
+            </div>
+            <div class="layout-card">
+                <div class="layout-box quarter"></div>
+                <div class="layout-box quarter"></div>
+                <div class="layout-box quarter"></div>
+                <div class="layout-box quarter"></div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn next-btn">NEXT</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".layout-card");
+
+            cards.forEach(card => {
+                card.addEventListener("click", () => {
+                    cards.forEach(c => c.classList.remove("selected"));
+                    card.classList.add("selected");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
