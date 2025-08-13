@@ -1,5 +1,5 @@
 body {
-    background: #dcd3e1;
+    background: #3F3844;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -43,7 +43,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 150px;
+    width: 170px;
 }
 
 .photo-slot {
@@ -61,7 +61,6 @@ body {
     object-fit: cover;
 }
 
-/* Overlay for retake button */
 .overlay {
     position: absolute;
     top: 0;
