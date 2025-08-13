@@ -1,0 +1,132 @@
+const video = document.getElementById("video");
+const captureBtn = document.getElementById("captureBtn");
+const finalFrame = document.getElementById("finalFrame");
+
+const selectedLayout = parseInt(localStorage.getItem("selectedLayout") || "4");
+const selectedFrameColor = localStorage.getItem("selectedFrameColor") || "#FFFFFF";
+
+let shots = [];
+
+function createLayout() {
+    finalFrame.innerHTML = "";
+    finalFrame.style.backgroundColor = "transparent";
+
+    const cameraHeight = document.querySelector(".camera-section video").offsetHeight;
+    finalFrame.style.height = cameraHeight + "px";
+
+    const gapCount = selectedLayout - 1;
+    const gapSize = 10;
+    const totalGap = gapCount * gapSize;
+    const slotHeight = (cameraHeight - totalGap) / selectedLayout;
+
+    for (let i = 0; i < selectedLayout; i++) {
+        const slot = document.createElement("div");
+        slot.classList.add("photo-slot");
+
+        // Overlay for retake button
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+
+        const retakeBtn = document.createElement("button");
+        retakeBtn.textContent = "Retake";
+        retakeBtn.classList.add("retake-btn");
+        retakeBtn.addEventListener("click", () => retakePhoto(i));
+
+        overlay.appendChild(retakeBtn);
+        slot.style.height = slotHeight + "px";
+        slot.appendChild(overlay);
+        finalFrame.appendChild(slot);
+    }
+}
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+    video.srcObject = stream;
+    video.addEventListener('loadedmetadata', createLayout);
+});
+
+captureBtn.addEventListener("click", capturePhotos);
+
+function capturePhotos() {
+    if (shots.length >= selectedLayout) return;
+
+    takePhoto(shots.length);
+
+    if (shots.length === selectedLayout) {
+        captureBtn.textContent = "Done";
+        captureBtn.removeEventListener("click", capturePhotos);
+        captureBtn.addEventListener("click", () => {
+            document.getElementById("confirmationModal").style.display = "block";
+        });
+        stopCamera();
+    }
+}
+
+function takePhoto(index) {
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0);
+
+    const imgData = canvas.toDataURL("image/png");
+    shots[index] = imgData;
+
+    const slot = finalFrame.querySelectorAll(".photo-slot")[index];
+    let img = slot.querySelector("img");
+
+    if (!img) {
+        img = document.createElement("img");
+        slot.insertBefore(img, slot.querySelector(".overlay"));
+    }
+
+    img.src = imgData;
+}
+
+function retakePhoto(index) {
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        video.srcObject = stream;
+        captureBtn.textContent = "Retake pic";
+
+        captureBtn.onclick = () => {
+            takePhoto(index);
+            stopCamera();
+            captureBtn.textContent = "📷";
+            captureBtn.onclick = capturePhotos;
+        };
+    });
+}
+
+//buttons
+document.getElementById("yesBtn").addEventListener("click", () => {
+    document.getElementById("confirmationModal").style.display = "none";
+    savePhotos();
+});
+
+document.getElementById("noBtn").addEventListener("click", () => {
+    document.getElementById("confirmationModal").style.display = "none";
+});
+
+function savePhotos() {
+    fetch("/save_photos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            images: shots,
+            layout: selectedLayout,
+            frameColor: selectedFrameColor
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(`Photos saved as: ${data.filename}`);
+    });
+}
+
+function stopCamera() {
+    const stream = video.srcObject;
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    video.srcObject = null;
+}
