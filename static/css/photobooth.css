@@ -80,7 +80,7 @@ body {
 }
 
 .retake-btn {
-    background: #ff6666;
+    background: #656b9d;
     border: none;
     padding: 6px 12px;
     color: white;
@@ -90,7 +90,7 @@ body {
 }
 
 .retake-btn:hover {
-    background: #ff4c4c;
+    background: #9095c1;
 }
 
 .button-wrapper {

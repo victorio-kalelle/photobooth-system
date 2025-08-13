@@ -118,8 +118,15 @@
         function retakePhoto(index) {
             navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
                 video.srcObject = stream;
-                takePhoto(index);
-                stopCamera();
+                captureBtn.textContent = "Retake pic";
+
+                captureBtn.onclick = () => {
+                    takePhoto(index);
+                    stopCamera();
+                    captureBtn.textContent = "📷";
+                    captureBtn.onclick = capturePhotos;
+                }
+
             });
         }
 
